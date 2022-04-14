@@ -207,9 +207,9 @@ namespace ConcentrationGame
 
         private void LoadNeededImages()
         {
-            bool isRepeated = true;
             for (int i = 0; i < numberOfCards / matchRule; i++)
             {
+                bool isRepeated = true;
                 Image image = new Image();
                 int rnd_index = random.Next(1,NUMBER_OF_DIFFERENT_CARDS + 1);
                 image.Source = new BitmapImage(new Uri($"/Images/{rnd_index}.jpg", UriKind.RelativeOrAbsolute));
