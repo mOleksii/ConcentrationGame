@@ -1,0 +1,71 @@
+﻿<Window x:Class="ConcentrationGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConcentrationGame"
+        mc:Ignorable="d"
+        Title="The Concentration Game" 
+        Height="550" Width="800"
+        MinHeight="500" MinWidth="700">
+
+    <Grid x:Name="mainGrid" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Background.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Border Background="#FF7C41E0" 
+                BorderBrush="Purple"
+                BorderThickness="1" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Width="330"
+                Height="40"
+                Opacity="0.5">
+            <StackPanel x:Name="difficultyStackPan" Orientation="Horizontal"  >
+                <RadioButton x:Name="easyButton" Content="Easy" Foreground="White" FontWeight="Bold" FontSize="18" Padding="4,-1,20,0" Checked="DifficultyLevelButtons_Checked" />
+                <RadioButton x:Name="mediumButton" Content="Medium" Foreground="White" FontWeight="Bold" FontSize="18" Padding="4,-1,20,0" Checked="DifficultyLevelButtons_Checked" />
+                <RadioButton x:Name="hardButton" Content="Hard" Foreground="White" FontWeight="Bold" FontSize="18" Padding="4,-1,20,0" Checked="DifficultyLevelButtons_Checked" />
+            </StackPanel>
+        </Border>
+
+        <Border Background="#FF7C41E0" 
+                BorderBrush="Purple"
+                Grid.Column="1"
+                BorderThickness="1" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Width="330"
+                Height="40"
+                Opacity="0.5">
+            <StackPanel x:Name="matchRuleStackPan" Orientation="Horizontal"  >
+                <RadioButton x:Name="matchTwoButton" Content="Match 2" Foreground="White" FontWeight="Bold" FontSize="18" Padding="4,-1,30,0" Checked="MatchRuleButtons_Checked" />
+                <RadioButton x:Name="matchThreeButton" Content="Match 3" Foreground="White" FontWeight="Bold" FontSize="18" Padding="4,-1,26,0" Checked="MatchRuleButtons_Checked" />
+            </StackPanel>
+        </Border>
+        <Label Content="Difficulty Level" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="18" FontWeight="Bold"/>
+        <Label Content="Match Rule" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="18" FontWeight="Bold" Grid.Column="1"/>
+
+        <Border x:Name="mainGameBorder" Background="#FF7C41E0" 
+                BorderBrush="Purple"
+                BorderThickness="1" 
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Width="650"
+                Height="370"
+                Opacity="0.5">
+
+            <UniformGrid x:Name="gameUniGrid" Columns="10" Rows="5">
+            </UniformGrid>
+        </Border>
+    </Grid>
+</Window>

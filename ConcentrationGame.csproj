@@ -1,0 +1,106 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Background.jpg" />
+    <None Remove="Images\1.jpg" />
+    <None Remove="Images\10.jpg" />
+    <None Remove="Images\10_eagle.jpg" />
+    <None Remove="Images\11.jpg" />
+    <None Remove="Images\11_hedgehog.jpg" />
+    <None Remove="Images\12.jpg" />
+    <None Remove="Images\12_husky.jpg" />
+    <None Remove="Images\13.jpg" />
+    <None Remove="Images\13_racoon.jpg" />
+    <None Remove="Images\14.jpg" />
+    <None Remove="Images\14_squirrel.jpg" />
+    <None Remove="Images\15.jpg" />
+    <None Remove="Images\15_sloth.jpg" />
+    <None Remove="Images\16.jpg" />
+    <None Remove="Images\16_panda.jpg" />
+    <None Remove="Images\17.jpg" />
+    <None Remove="Images\17_lemur.jpg" />
+    <None Remove="Images\1_bear.jpg" />
+    <None Remove="Images\2.jpg" />
+    <None Remove="Images\2_wolf.jpg" />
+    <None Remove="Images\3.jpg" />
+    <None Remove="Images\3_tiger.jpg" />
+    <None Remove="Images\4.jpg" />
+    <None Remove="Images\4_cat.jpg" />
+    <None Remove="Images\5.jpg" />
+    <None Remove="Images\5_horse.jpg" />
+    <None Remove="Images\6.jpg" />
+    <None Remove="Images\6_dog.jpg" />
+    <None Remove="Images\7.jpg" />
+    <None Remove="Images\7_rabbit.jpg" />
+    <None Remove="Images\8.jpg" />
+    <None Remove="Images\8_turtle.jpg" />
+    <None Remove="Images\9.jpg" />
+    <None Remove="Images\9_owl.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Background.jpg" />
+  </ItemGroup>
+
+</Project>
