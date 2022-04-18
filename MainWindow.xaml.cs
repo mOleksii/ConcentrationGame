@@ -32,10 +32,17 @@ namespace ConcentrationGame
         Random random = new Random();
         List<Button> allButtonCards = new List<Button>();
         List<Image> imagesUsed = new List<Image>();
+        Label label = new Label();
 
         public MainWindow()
         {
             InitializeComponent();
+            label.Content = "Flip Me!";
+            label.FontWeight = FontWeights.Bold;
+            label.FontSize = 14;
+            label.Background = Brushes.Purple; // or Transparent
+            label.Opacity = 0.8;
+            label.Visibility = Visibility.Visible;
         }
 
         private void DifficultyLevelButtons_Checked(object sender, RoutedEventArgs e)
@@ -79,7 +86,6 @@ namespace ConcentrationGame
             imagesUsed.Clear();
             numberOfCards = 0;
 
-
             SetGameDifficultyAndRule();
 
             LoadNeededImages();
@@ -118,6 +124,9 @@ namespace ConcentrationGame
             if(cardsFlippedCounter == 1)
             {
                 firstFlipped = buttonIndex;
+
+                Grid n = allButtonCards[firstFlipped].Content as Grid;
+                n.Children[0].Visibility = Visibility.Visible;
                 allButtonCards[firstFlipped].Content = imagesUsed[firstFlipped];
                // allButtonCards[firstFlipped].Content = Stretch.UniformToFill;
                 allButtonCards[firstFlipped].IsEnabled = false;
@@ -143,7 +152,8 @@ namespace ConcentrationGame
                     //use a label instead?
                     //or make a function that changes specific button to an OG button (again maybe label or fix the content one)
                     //Check why the image is not showing
-                    allButtonCards[firstFlipped].Content = "Flip Me!";
+
+                    /*allButtonCards[firstFlipped].Content = "Flip Me!";
                     allButtonCards[firstFlipped].FontWeight = FontWeights.Bold;
                     allButtonCards[firstFlipped].FontSize = 14;
                     allButtonCards[firstFlipped].Background = Brushes.Purple; // or Transparent
@@ -156,7 +166,11 @@ namespace ConcentrationGame
                     allButtonCards[secondFlipped].Background = Brushes.Purple; // or Transparent
                     allButtonCards[secondFlipped].Opacity = 0.8;
                     allButtonCards[secondFlipped].IsEnabled = true;
-
+                    */
+                    allButtonCards[firstFlipped].IsEnabled = true;
+                    imagesUsed[firstFlipped].Visibility = Visibility.Visible;
+                    allButtonCards[secondFlipped].IsEnabled = true;
+                    allButtonCards[secondFlipped].Visibility = Visibility.Visible;
                     gameUniGrid.Children[firstFlipped] = allButtonCards[firstFlipped];
                     gameUniGrid.Children[secondFlipped] = allButtonCards[secondFlipped];
                     cardsFlippedCounter = 0;
@@ -168,42 +182,39 @@ namespace ConcentrationGame
      
         private void CreateButtons()
         {
-            for (int i = 0; i < numberOfCards; i++)
-            {
-                Button cardButton = new Button();
+            /* for (int i = 0; i < numberOfCards; i++)
+             {
+                 Button cardButton = new Button();
 
-                cardButton.Content = "Flip Me!";
-                cardButton.FontWeight = FontWeights.Bold;
-                cardButton.FontSize = 14;
-                cardButton.Background = Brushes.Purple; // or Transparent
-                cardButton.Opacity = 0.8;
-                cardButton.Click += CardButton_Click;
-                allButtonCards.Add(cardButton);
+                 cardButton.Content = "Flip Me!";
+                 cardButton.FontWeight = FontWeights.Bold;
+                 cardButton.FontSize = 14;
+                 cardButton.Background = Brushes.Purple; // or Transparent
+                 cardButton.Opacity = 0.8;
+                 cardButton.Click += CardButton_Click;
+                 allButtonCards.Add(cardButton);
 
-                gameUniGrid.Children.Add(cardButton);
-            }
-            /*Label label = new Label();
-            label.Content = "Flip Me!";
-            label.FontWeight = FontWeights.Bold;
-            label.FontSize = 14;
-            label.Background = Brushes.Purple; // or Transparent
-            label.Opacity = 0.8;
+                 gameUniGrid.Children.Add(cardButton);
+             }
+            */
 
             for (int i = 0; i < numberOfCards; i++)
-            {
-                //int rnd_index = random.Next(imagesUsed.Count);
-                Button cardButton = new Button();
+            { 
                 Grid newGrid = new Grid();
+                Button cardButton = new Button();
 
-                newGrid.Children.Add(label);
-                newGrid.Children.Add(imagesUsed[i]);
-                imagesUsed.RemoveAt(i);
+                newGrid.Children.Insert(0,label);
+                imagesUsed[i].Stretch = Stretch.UniformToFill;
+                imagesUsed[i].Visibility = Visibility.Hidden;
+                newGrid.Children.Insert(0,imagesUsed[i]);
+
                 cardButton.Content = newGrid;
                 cardButton.Click += CardButton_Click;
-                allButtonCards.Add(cardButton);
 
+                allButtonCards.Add(cardButton);
                 gameUniGrid.Children.Add(cardButton);
-            }*/
+                //newGrid.Children.Clear();
+            }
         }
 
         private void SetGameDifficultyAndRule()
