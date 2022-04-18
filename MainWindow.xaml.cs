@@ -30,19 +30,15 @@ namespace ConcentrationGame
         int pairsFound = 0;
 
         Random random = new Random();
+        Grid firstFlippedGrid = new Grid();
+        Grid secondFlippedGrid = new Grid();
         List<Button> allButtonCards = new List<Button>();
         List<Image> imagesUsed = new List<Image>();
-        Label label = new Label();
 
         public MainWindow()
         {
             InitializeComponent();
-            label.Content = "Flip Me!";
-            label.FontWeight = FontWeights.Bold;
-            label.FontSize = 14;
-            label.Background = Brushes.Purple; // or Transparent
-            label.Opacity = 0.8;
-            label.Visibility = Visibility.Visible;
+            
         }
 
         private void DifficultyLevelButtons_Checked(object sender, RoutedEventArgs e)
@@ -92,8 +88,6 @@ namespace ConcentrationGame
 
             CreateButtons();
 
-            //allCards.Clear();
-                   
         }
 
         private void CardButton_Click(object sender, RoutedEventArgs e)
@@ -102,118 +96,101 @@ namespace ConcentrationGame
 
             foreach (Button button in gameUniGrid.Children)
             {
-                if(button == (Button)sender)  //and enabled?
+                if (button == (Button)sender)  //and enabled?
                 {
                     cardsFlippedCounter++;
-                    CheckIfFlippedMatch(index_counter); //maybe change to picture first, and then check?
-                    
-                        
+                    FlipCard(index_counter);
+
                     break;
                 }
 
                 index_counter++;
             }
 
+            if (cardsFlippedCounter == 2)
+                CheckIfFlippedMatch();
+
             if (pairsFound == numberOfCards / matchRule)
                 MessageBox.Show("You won!");
 
         }
 
-        private void CheckIfFlippedMatch(int buttonIndex)
+        private void FlipCard(int buttonIndex)
         {
             if(cardsFlippedCounter == 1)
             {
                 firstFlipped = buttonIndex;
 
-                Grid n = allButtonCards[firstFlipped].Content as Grid;
-                n.Children[0].Visibility = Visibility.Visible;
-                allButtonCards[firstFlipped].Content = imagesUsed[firstFlipped];
-               // allButtonCards[firstFlipped].Content = Stretch.UniformToFill;
+                firstFlippedGrid = allButtonCards[firstFlipped].Content as Grid;
+                firstFlippedGrid.Children[0].Visibility = Visibility.Hidden;
+                firstFlippedGrid.Children[1].Visibility = Visibility.Visible;
                 allButtonCards[firstFlipped].IsEnabled = false;
-
-                gameUniGrid.Children[firstFlipped] = allButtonCards[firstFlipped];
-                    
             }
             else
             {
                 secondFlipped = buttonIndex;
 
-                allButtonCards[secondFlipped].Content = imagesUsed[secondFlipped];
+                secondFlippedGrid = allButtonCards[secondFlipped].Content as Grid;
+                secondFlippedGrid.Children[0].Visibility = Visibility.Hidden;
+                secondFlippedGrid.Children[1].Visibility = Visibility.Visible;
                 allButtonCards[secondFlipped].IsEnabled = false;
-                gameUniGrid.Children[secondFlipped] = allButtonCards[secondFlipped];
+                
+            }
+        }
 
-                if (imagesUsed[firstFlipped].Tag == imagesUsed[secondFlipped].Tag)
-                {
-                    pairsFound++;
-                    cardsFlippedCounter = 0;
-                }
-                else
-                {
-                    //use a label instead?
-                    //or make a function that changes specific button to an OG button (again maybe label or fix the content one)
-                    //Check why the image is not showing
+        private void CheckIfFlippedMatch()
+        {
+            if (imagesUsed[firstFlipped].Tag == imagesUsed[secondFlipped].Tag)
+            {
+                pairsFound++;
+                cardsFlippedCounter = 0;
+            }
+            else
+            {
+                //System.Threading.Thread.Sleep(1000);
+                firstFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                firstFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                allButtonCards[firstFlipped].IsEnabled = true;
 
-                    /*allButtonCards[firstFlipped].Content = "Flip Me!";
-                    allButtonCards[firstFlipped].FontWeight = FontWeights.Bold;
-                    allButtonCards[firstFlipped].FontSize = 14;
-                    allButtonCards[firstFlipped].Background = Brushes.Purple; // or Transparent
-                    allButtonCards[firstFlipped].Opacity = 0.8;
-                    allButtonCards[firstFlipped].IsEnabled = true;
+                secondFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                secondFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                allButtonCards[secondFlipped].IsEnabled = true;
 
-                    allButtonCards[secondFlipped].Content = "Flip Me!";
-                    allButtonCards[secondFlipped].FontWeight = FontWeights.Bold;
-                    allButtonCards[secondFlipped].FontSize = 14;
-                    allButtonCards[secondFlipped].Background = Brushes.Purple; // or Transparent
-                    allButtonCards[secondFlipped].Opacity = 0.8;
-                    allButtonCards[secondFlipped].IsEnabled = true;
-                    */
-                    allButtonCards[firstFlipped].IsEnabled = true;
-                    imagesUsed[firstFlipped].Visibility = Visibility.Visible;
-                    allButtonCards[secondFlipped].IsEnabled = true;
-                    allButtonCards[secondFlipped].Visibility = Visibility.Visible;
-                    gameUniGrid.Children[firstFlipped] = allButtonCards[firstFlipped];
-                    gameUniGrid.Children[secondFlipped] = allButtonCards[secondFlipped];
-                    cardsFlippedCounter = 0;
-                }
-
+                cardsFlippedCounter = 0;
             }
 
         }
-     
+
         private void CreateButtons()
         {
-            /* for (int i = 0; i < numberOfCards; i++)
-             {
-                 Button cardButton = new Button();
-
-                 cardButton.Content = "Flip Me!";
-                 cardButton.FontWeight = FontWeights.Bold;
-                 cardButton.FontSize = 14;
-                 cardButton.Background = Brushes.Purple; // or Transparent
-                 cardButton.Opacity = 0.8;
-                 cardButton.Click += CardButton_Click;
-                 allButtonCards.Add(cardButton);
-
-                 gameUniGrid.Children.Add(cardButton);
-             }
-            */
-
             for (int i = 0; i < numberOfCards; i++)
             { 
                 Grid newGrid = new Grid();
                 Button cardButton = new Button();
+                Label label = new Label();
+
+                label.Content = "Flip Me!";
+                label.FontWeight = FontWeights.Bold;
+                label.FontSize = 14;
+                label.Background = Brushes.Purple; // or Transparent
+                label.Opacity = 0.8;
+                label.HorizontalAlignment = HorizontalAlignment.Stretch;
+                label.VerticalAlignment = VerticalAlignment.Stretch;
+                label.Visibility = Visibility.Visible;
+                label.Tag = i.ToString();
 
                 newGrid.Children.Insert(0,label);
                 imagesUsed[i].Stretch = Stretch.UniformToFill;
+                imagesUsed[i].HorizontalAlignment = HorizontalAlignment.Center;
+
                 imagesUsed[i].Visibility = Visibility.Hidden;
-                newGrid.Children.Insert(0,imagesUsed[i]);
+                newGrid.Children.Insert(1,imagesUsed[i]);
 
                 cardButton.Content = newGrid;
                 cardButton.Click += CardButton_Click;
 
                 allButtonCards.Add(cardButton);
                 gameUniGrid.Children.Add(cardButton);
-                //newGrid.Children.Clear();
             }
         }
 
