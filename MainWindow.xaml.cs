@@ -26,12 +26,13 @@ namespace ConcentrationGame
         int matchRule = 0;
         int numberOfCards = 0;
         int cardsFlippedCounter = 0;
-        int firstFlipped, secondFlipped;
+        int firstFlipped, secondFlipped, thirdFlipped;
         int pairsFound = 0;
 
         Random random = new Random();
         Grid firstFlippedGrid = new Grid();
         Grid secondFlippedGrid = new Grid();
+        Grid thirdFlippedGrid = new Grid();
         List<Button> allButtonCards = new List<Button>();
         List<Image> imagesUsed = new List<Image>();
 
@@ -72,6 +73,7 @@ namespace ConcentrationGame
 
         private void GameStart()
         {
+            pairsFound = 0;
             imagesUsed.Clear();
             allButtonCards.Clear();
             GameBoardSetup();
@@ -107,8 +109,11 @@ namespace ConcentrationGame
                 index_counter++;
             }
 
-            if (cardsFlippedCounter == 2)
+            if (cardsFlippedCounter == 2 && matchRule == 2)
                 CheckIfFlippedMatch();
+            else if (cardsFlippedCounter == 3 && matchRule == 3)
+                CheckIfFlippedMatch();
+
 
             if (pairsFound == numberOfCards / matchRule)
                 MessageBox.Show("You won!");
@@ -126,7 +131,7 @@ namespace ConcentrationGame
                 firstFlippedGrid.Children[1].Visibility = Visibility.Visible;
                 allButtonCards[firstFlipped].IsEnabled = false;
             }
-            else
+            else if(cardsFlippedCounter == 2)
             {
                 secondFlipped = buttonIndex;
 
@@ -134,29 +139,65 @@ namespace ConcentrationGame
                 secondFlippedGrid.Children[0].Visibility = Visibility.Hidden;
                 secondFlippedGrid.Children[1].Visibility = Visibility.Visible;
                 allButtonCards[secondFlipped].IsEnabled = false;
-                
+
             }
+            else if(cardsFlippedCounter == 3)
+            {
+                thirdFlipped = buttonIndex;
+
+                thirdFlippedGrid = allButtonCards[thirdFlipped].Content as Grid;
+                thirdFlippedGrid.Children[0].Visibility = Visibility.Hidden;
+                thirdFlippedGrid.Children[1].Visibility = Visibility.Visible;
+                allButtonCards[thirdFlipped].IsEnabled = false;
+            }    
         }
 
         private void CheckIfFlippedMatch()
         {
-            if (imagesUsed[firstFlipped].Tag == imagesUsed[secondFlipped].Tag)
+            if (matchRule == 2)
             {
-                pairsFound++;
-                cardsFlippedCounter = 0;
+                if (imagesUsed[firstFlipped].Tag == imagesUsed[secondFlipped].Tag)
+                {
+                    pairsFound++;
+                    cardsFlippedCounter = 0;
+                }
+                else
+                {
+                    firstFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                    firstFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                    allButtonCards[firstFlipped].IsEnabled = true;
+
+                    secondFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                    secondFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                    allButtonCards[secondFlipped].IsEnabled = true;
+
+                    cardsFlippedCounter = 0;
+                }
             }
-            else
+            else if (matchRule == 3)
             {
-                //System.Threading.Thread.Sleep(1000);
-                firstFlippedGrid.Children[0].Visibility = Visibility.Visible;
-                firstFlippedGrid.Children[1].Visibility = Visibility.Hidden;
-                allButtonCards[firstFlipped].IsEnabled = true;
+                if (imagesUsed[firstFlipped].Tag == imagesUsed[secondFlipped].Tag && imagesUsed[thirdFlipped].Tag == imagesUsed[firstFlipped].Tag)
+                {
+                    pairsFound++;
+                    cardsFlippedCounter = 0;
+                }
+                else
+                {
+                    firstFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                    firstFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                    allButtonCards[firstFlipped].IsEnabled = true;
 
-                secondFlippedGrid.Children[0].Visibility = Visibility.Visible;
-                secondFlippedGrid.Children[1].Visibility = Visibility.Hidden;
-                allButtonCards[secondFlipped].IsEnabled = true;
+                    secondFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                    secondFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                    allButtonCards[secondFlipped].IsEnabled = true;
 
-                cardsFlippedCounter = 0;
+
+                    thirdFlippedGrid.Children[0].Visibility = Visibility.Visible;
+                    thirdFlippedGrid.Children[1].Visibility = Visibility.Hidden;
+                    allButtonCards[thirdFlipped].IsEnabled = true;
+
+                    cardsFlippedCounter = 0;
+                }
             }
 
         }
