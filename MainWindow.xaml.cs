@@ -33,9 +33,6 @@ namespace ConcentrationGame
         List<Button> allButtonCards = new List<Button>();
         List<Image> imagesUsed = new List<Image>();
 
-        List<Grid> gridBtnImg = new List<Grid>();
-        List<Image> flippedCards = new List<Image>();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -111,6 +108,8 @@ namespace ConcentrationGame
                 index_counter++;
             }
 
+            if (pairsFound == numberOfCards / matchRule)
+                MessageBox.Show("You won!");
 
         }
 
@@ -134,9 +133,10 @@ namespace ConcentrationGame
                 allButtonCards[secondFlipped].IsEnabled = false;
                 gameUniGrid.Children[secondFlipped] = allButtonCards[secondFlipped];
 
-                if (imagesUsed[firstFlipped].Source == imagesUsed[secondFlipped].Source)
+                if (imagesUsed[firstFlipped].Tag == imagesUsed[secondFlipped].Tag)
                 {
                     pairsFound++;
+                    cardsFlippedCounter = 0;
                 }
                 else
                 {
@@ -182,6 +182,28 @@ namespace ConcentrationGame
 
                 gameUniGrid.Children.Add(cardButton);
             }
+            /*Label label = new Label();
+            label.Content = "Flip Me!";
+            label.FontWeight = FontWeights.Bold;
+            label.FontSize = 14;
+            label.Background = Brushes.Purple; // or Transparent
+            label.Opacity = 0.8;
+
+            for (int i = 0; i < numberOfCards; i++)
+            {
+                //int rnd_index = random.Next(imagesUsed.Count);
+                Button cardButton = new Button();
+                Grid newGrid = new Grid();
+
+                newGrid.Children.Add(label);
+                newGrid.Children.Add(imagesUsed[i]);
+                imagesUsed.RemoveAt(i);
+                cardButton.Content = newGrid;
+                cardButton.Click += CardButton_Click;
+                allButtonCards.Add(cardButton);
+
+                gameUniGrid.Children.Add(cardButton);
+            }*/
         }
 
         private void SetGameDifficultyAndRule()
@@ -209,36 +231,17 @@ namespace ConcentrationGame
         {
             for (int i = 0; i < numberOfCards / matchRule; i++)
             {
-                bool isRepeated = true;
-                Image image = new Image();
-                int rnd_index = random.Next(1,NUMBER_OF_DIFFERENT_CARDS + 1);
-                image.Source = new BitmapImage(new Uri($"/Images/{rnd_index}.jpg", UriKind.RelativeOrAbsolute));
-
-                if(i == 0)
+                for (int j = 1; j <= matchRule; ++j)
                 {
-                    imagesUsed.Add(image);
-                    imagesUsed.Add(image);
-                }
-                else
-                {
-                    foreach(Image existingImg in imagesUsed)
-                    {
-                        if(existingImg.Source == image.Source)
-                        {
-                            i--;
-                            break;
-                        }
+                    Image image = new Image();
+                    image.Source = new BitmapImage(new Uri($"/Images/{i + 1}.jpg", UriKind.RelativeOrAbsolute));
+                    image.Tag = i.ToString();
 
-                        isRepeated = false;
-                    }
-
-                    if(!isRepeated)
-                    {
-                        imagesUsed.Add(image);
-                        imagesUsed.Add(image);
-                    }
+                    int rnd_index = random.Next(0, imagesUsed.Count + 1);
+                    imagesUsed.Insert(rnd_index, image);
                 }
             }
         }
+
     }
 }
