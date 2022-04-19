@@ -92,7 +92,7 @@ namespace ConcentrationGame
 
         }
 
-        private void CardButton_Click(object sender, RoutedEventArgs e)
+        private async void CardButton_Click(object sender, RoutedEventArgs e)
         {
             int index_counter = 0;
 
@@ -110,9 +110,15 @@ namespace ConcentrationGame
             }
 
             if (cardsFlippedCounter == 2 && matchRule == 2)
+            {
+                await Task.Delay(1000);
                 CheckIfFlippedMatch();
+            }
             else if (cardsFlippedCounter == 3 && matchRule == 3)
+            {
+                await Task.Delay(1000);
                 CheckIfFlippedMatch();
+            }
 
 
             if (pairsFound == numberOfCards / matchRule)
